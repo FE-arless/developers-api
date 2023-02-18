@@ -1,0 +1,19 @@
+name: after_merge
+on:
+  pull_request:
+    branches:
+      - develop
+    types: [closed]
+
+jobs:
+  discord_noti:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Discord notification
+        if: github.event.pull_request.merged
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been merged.'

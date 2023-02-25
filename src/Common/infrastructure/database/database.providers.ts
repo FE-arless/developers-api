@@ -1,8 +1,10 @@
 import { ConfigModule } from '@nestjs/config';
+import { User } from 'src/Users/domain/entities/User';
+import { UserRepository } from 'src/Users/domain/repository/user.repository';
 import { DataSource } from 'typeorm';
 
-ConfigModule.forRoot({ isGlobal: true })
-console.log(process.env.database_config)
+
+
 
 export const databaseProviders = [
   {
@@ -13,11 +15,10 @@ export const databaseProviders = [
         url: process.env.database_config,
         logging: true,
         entities: [
-            __dirname + '/../**/*.entity{.ts,.js}',
+          User
         ],
         synchronize: true,
-      });
-
+      })
       return dataSource.initialize();
     },
   },

@@ -1,5 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
+export enum UserStatus {
+    Archived ='Archived',
+    Invited = 'Invited'
+}
+
 @Entity('user')
 export class User {
 
@@ -12,14 +17,10 @@ export class User {
     @Column()
     email: string;
 
-    @Column()
+    @Column({ name: "nick_name" })
     nickName: string;
 
-    @Column()
-    userStatus: typeof UserStatus;
+    @Column({ type: 'enum', name: 'user_status', enum: UserStatus })
+    userStatus: UserStatus;
 }
 
-export const UserStatus = {
-    Archived:'Archived',
-    Invited: 'Invited'
-} as const;

@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { UserModule } from './Users/application/user.module';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(UserModule);
+  const app = await NestFactory.create(AppModule);
   await app.listen(3000);
   console.log('Runing on port ==> ', 3000);
 }

@@ -1,6 +1,11 @@
+import { UpdateUserInfoDTO } from "../dto/update.user.dto";
 import { User } from "../entities/User";
 
 export interface IUserService {
     
-    getUserInfo(id: number): Promise<User | undefined>; 
+    getUserInfo(email: string): Promise<User | undefined>; 
+
+    updateUserInfo(email: string, userInfo: UpdateUserInfoDTO): Promise<User | undefined>;
+
+    deleteUserInfo(email: string): Promise<Boolean | undefined>;
 }

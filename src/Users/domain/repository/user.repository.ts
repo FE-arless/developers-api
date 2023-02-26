@@ -1,6 +1,6 @@
 import { CustomRepository } from "src/util/custom.repository";
 import { Repository } from "typeorm";
-import { User } from "../entities/User";
+import { User } from "../entities/user";
 import { IUserRepository } from "./user.repository.interface";
 
 export interface UserFindOneOptions {

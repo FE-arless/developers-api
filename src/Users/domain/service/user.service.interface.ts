@@ -1,5 +1,5 @@
 import { UpdateUserInfoDTO } from "../dto/update.user.dto";
-import { User } from "../entities/User";
+import { User } from "../entities/user";
 
 export interface IUserService {
     

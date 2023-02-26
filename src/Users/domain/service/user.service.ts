@@ -1,8 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { UserRepository } from "../../domain/repository/user.repository";
 import { IUserService } from "./user.service.interface";
-import { User } from "../entities/User";
+import { User } from "../entities/user";
 import { UpdateUserInfoDTO } from "../dto/update.user.dto";
 
 @Injectable()

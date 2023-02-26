@@ -1,4 +1,4 @@
-import { UserStatus } from "../../domain/entities/User";
+import { UserStatus } from "../../domain/entities/user";
 
 
 export class CreateUserDTO {

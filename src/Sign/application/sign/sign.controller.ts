@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { SignService } from 'src/Sign/domain/service/sign.service';
 import { CreateUserDTO } from 'src/Users/domain/dto/create.user.dto';
-import { User } from 'src/Users/domain/entities/User';
 
 @Controller('sign')
 export class SignController {

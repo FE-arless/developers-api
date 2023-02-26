@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateUserDTO } from "src/Users/domain/dto/create.user.dto";
-import { User } from "src/Users/domain/entities/User";
 import { UserRepository } from "src/Users/domain/repository/user.repository";
 import { ISignService } from "./sign.service.interface";
 
@@ -24,7 +23,7 @@ export class SignService implements ISignService {
         if (user != undefined) {
             throw new HttpException("Already SignUp User", HttpStatus.BAD_REQUEST);
         }
-        
+
         try {
            await this.userRepository.save(userInfo)
         } catch {

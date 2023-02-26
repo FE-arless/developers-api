@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { UpdateUserInfoDTO } from '../../domain/dto/update.user.dto';
-import { User } from 'src/Users/domain/entities/User';
+import { User } from 'src/Users/domain/entities/user';
 import { UserService } from 'src/Users/domain/service/user.service';
 
 @Controller('users')

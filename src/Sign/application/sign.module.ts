@@ -5,6 +5,7 @@ import { TypeOrmExModule } from "src/util/typeorm-ex.module";
 import { SignController } from "./sign/sign.controller";
 import { User } from "src/Users/domain/entities/user";
 import { SignService } from "../domain/service/sign.service";
+import { MailService } from "../domain/service/mail.service";
 
 @Module({
     imports: [
@@ -14,7 +15,7 @@ import { SignService } from "../domain/service/sign.service";
     ],
     exports: [TypeOrmModule, TypeOrmExModule],
     controllers: [SignController],
-    providers: [SignService]
+    providers: [SignService, MailService]
   })
 
 export class SignModule {

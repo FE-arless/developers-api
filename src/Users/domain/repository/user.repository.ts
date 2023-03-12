@@ -11,9 +11,6 @@ export interface UserFindOneOptions {
 
 @CustomRepository(User)
 export class UserRepository extends Repository<User> implements IUserRepository {
-    
-
-
     async findByEmail(email: string): Promise<User | undefined> {
         return this.findOne({ where: { email }});
     }

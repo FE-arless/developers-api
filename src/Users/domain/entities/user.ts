@@ -2,7 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 export enum UserStatus {
     Archived ='Archived',
-    Invited = 'Invited'
+    Invited = 'Invited',
+    Verified = 'Verified',
 }
 
 @Entity('user')
@@ -17,10 +18,12 @@ export class User {
     @Column()
     email: string;
 
-    @Column({ name: "nick_name" })
+    @Column({ name: 'nick_name' })
     nickName: string;
 
     @Column({ type: 'enum', name: 'user_status', enum: UserStatus })
     userStatus: UserStatus;
-}
 
+    @Column({ nullable: true })
+    password: string;
+}

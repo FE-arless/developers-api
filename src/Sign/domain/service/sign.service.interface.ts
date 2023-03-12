@@ -7,6 +7,4 @@ export interface ISignService {
     signUp(user: CreateUserDTO): Promise<Boolean | undefined>;
 
 
-    //이메일 인증
-    verifyEmail(email: string): Promise<string | undefined>;
 }

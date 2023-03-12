@@ -8,6 +8,7 @@ export class CreateUserDTO {
 
     nickName: string;
 
-    userStatus?: UserStatus;
-}
+    password?: string;
 
+    tempPassword?: string;
+}

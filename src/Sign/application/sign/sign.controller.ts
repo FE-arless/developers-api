@@ -29,7 +29,7 @@ export class SignController {
     }
 
     @UseGuards(LocalAuthGuard)
-    @Post('in')
+    @Post('auth/login')
     async login(@Req() req, @Res({ passthrough: true }) res): Promise<UserModel> {
 
         const user = await this.authService.login(req.user)

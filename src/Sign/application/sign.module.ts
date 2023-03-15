@@ -6,12 +6,15 @@ import { SignController } from "./sign/sign.controller";
 import { User } from "src/Users/domain/entities/user";
 import { SignService } from "../domain/service/sign.service";
 import { MailService } from "../domain/service/mail.service";
+import { AuthModule } from "src/Common/infrastructure/auth/auth.module";
+import { AuthService } from "../domain/service/auth.service";
 
 @Module({
     imports: [
       //DatabaseModule,
       TypeOrmModule.forFeature([User]),
       TypeOrmExModule.forCustomRepository([UserRepository]),
+      AuthModule
     ],
     exports: [TypeOrmModule, TypeOrmExModule],
     controllers: [SignController],

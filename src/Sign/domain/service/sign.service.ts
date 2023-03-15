@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateUserDTO } from "src/Users/domain/dto/create.user.dto";
-import { User, UserStatus } from "src/Users/domain/entities/user";
+import { User, UserStatus, UserType } from "src/Users/domain/entities/user";
 import { UserRepository } from "src/Users/domain/repository/user.repository";
 import { ISignService } from "./sign.service.interface";
 import { decrypt } from "src/util/auth";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class SignService implements ISignService {
@@ -25,12 +26,16 @@ export class SignService implements ISignService {
                 if (user.password != userInfo.tempPassword) {
                     throw new HttpException("Not Verified User", HttpStatus.UNAUTHORIZED)
                 } else { //인증된 회원은 그대로 업데이트되면서 가입 성공
-                    
+                    userInfo.password = await bcrypt.hash(userInfo.password, 10)
+
+                    console.log(userInfo.password)
+
                     try {
                         await this.userRepository.save({
                             ...user,
                             ...userInfo,
                             userStatus: UserStatus.Archived,
+                            userType: UserType.Email
                         })
                     } catch {
                         throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR)
@@ -45,6 +50,7 @@ export class SignService implements ISignService {
            await this.userRepository.save({
              ...userInfo,
              userStatus: UserStatus.Archived,
+             userType: UserType.Google
            })
         } catch {
             throw new HttpException(new Error('internal server error'), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,12 +1,11 @@
 import * as Crypto from 'crypto';
 
+
 const key = "This is the private key used by developers."
 
 //임시패스워드 생성
 export function createTemporaryPassword(): string {
     var randomstring = Math.random().toString(36).slice(-8);
-
-    //var password = encrypt(randomstring)
 
     return randomstring
 }
@@ -30,7 +29,7 @@ export function encrypt(plain: string): string {
 export function decrypt(encryptText: string): string {
 
     const decryptKey = Buffer.from(key, "utf-8")
-    const iv = Buffer.from(decryptKey.slice(0, 16))
+    const iv = Buffer.from(decryptKey.subarray(0, 16))
     const cipher = Crypto.createCipheriv('aes-256-cbc', decryptKey, iv)
 
     let plain = cipher.update(encryptText, 'base64', 'utf-8')
@@ -38,13 +37,4 @@ export function decrypt(encryptText: string): string {
     return plain
 }
 
-//토큰 만들기
-//유저 이메일 기반 - 유니크 값
-export function createJWT(email: string) {
-    crypto.randomUUID()
-    //Claim 생성
 
-    //토큰 구조 생성 및 서명
-
-    //반환
-}

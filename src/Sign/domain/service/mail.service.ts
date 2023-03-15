@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { UserRepository } from "src/Users/domain/repository/user.repository";
 import { IMailService } from "./mail.service.interface";
 import { createTemporaryPassword, encrypt } from "src/util/auth";
-import { User, UserStatus } from "src/Users/domain/entities/user";
+import { User, UserStatus, UserType } from "src/Users/domain/entities/user";
 import * as nodemailer from 'nodemailer';
 
 @Injectable()
@@ -24,7 +24,8 @@ export class MailService implements IMailService {
          await this.userRepository.save({
             email: email,
             userStatus: UserStatus.Invited,
-            password: randomPassword
+            password: randomPassword,
+            userType: UserType.Email
         })
 
          //이메일 전송

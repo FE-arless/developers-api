@@ -3,7 +3,9 @@ import { UpdateUserInfoDTO } from '../../domain/dto/update.user.dto';
 import { User } from 'src/Users/domain/entities/user';
 import { UserService } from 'src/Users/domain/service/user.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
     constructor(
@@ -11,6 +13,7 @@ export class UserController {
     ) {}
 
     @UseGuards(AuthGuard('access'))
+    
     @Get()
     async getUserInfo(@Param('email') email: string): Promise<User | undefined> {
         return this.userService.getUserInfo(email)

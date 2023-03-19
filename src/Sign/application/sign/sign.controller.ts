@@ -8,7 +8,9 @@ import { LoginUserDTO } from 'src/Users/domain/dto/login.user.dto';
 import { User } from 'src/Users/domain/entities/user';
 import { UserModel } from 'src/Users/domain/model/user.model';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Sign')
 @Controller('sign')
 export class SignController {
     constructor(

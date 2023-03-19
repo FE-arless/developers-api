@@ -5,8 +5,9 @@ import { CreateResumeDTO } from 'src/Resume/domain/dto/create.resume.dto';
 import { Resume, ResumeList } from 'src/Resume/domain/entities/resume';
 import { IResumeService } from 'src/Resume/domain/service/resume.service.interface';
 import { ResumeService } from 'src/Resume/domain/service/resume.service';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('Resume')
 @Controller('resume')
 export class ResumeController {
     constructor(

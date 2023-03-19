@@ -6,16 +6,19 @@ import { UserRepository } from "src/Users/domain/repository/user.repository";
 import { ISignService } from "./sign.service.interface";
 import { decrypt } from "src/util/auth";
 import * as bcrypt from 'bcrypt';
+import { ResumeRepository } from "src/Resume/domain/repository/resume.repository";
+import { ResumeList } from "src/Resume/domain/entities/resume";
 
 @Injectable()
 export class SignService implements ISignService {
     constructor(
-        private readonly userRepository: UserRepository
+        private readonly userRepository: UserRepository,
+        private readonly resumeRepository: ResumeRepository,
     ){}
 
     async signUp(userInfo: CreateUserDTO): Promise<Boolean> {
         var user = await this.userRepository.findByEmail(userInfo.email)
-
+        console.log(userInfo.email)
         if (user != undefined) {
             if (user.userStatus != UserStatus.Invited) {
                 throw new HttpException("Already SignUp User", HttpStatus.BAD_REQUEST);    
@@ -37,7 +40,14 @@ export class SignService implements ISignService {
                             userStatus: UserStatus.Archived,
                             userType: UserType.Email
                         })
-                    } catch {
+
+                        var resumeList = new ResumeList()
+                        resumeList.userEmail = userInfo.email
+                        resumeList.resumes = null
+                        await this.resumeRepository.save(resumeList)
+
+                    } catch(error) {
+                        console.log(error)
                         throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR)
                     }
                     console.log('이메일 유저 회원가입 성공')
@@ -52,6 +62,12 @@ export class SignService implements ISignService {
              userStatus: UserStatus.Archived,
              userType: UserType.Google
            })
+
+           var resumeList = new ResumeList()
+           resumeList.userEmail = userInfo.email
+           resumeList.resumes = null
+           await this.resumeRepository.save(resumeList)
+           
         } catch {
             throw new HttpException(new Error('internal server error'), HttpStatus.INTERNAL_SERVER_ERROR);
         }

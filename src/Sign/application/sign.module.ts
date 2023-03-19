@@ -8,12 +8,14 @@ import { SignService } from "../domain/service/sign.service";
 import { MailService } from "../domain/service/mail.service";
 import { AuthModule } from "src/Common/infrastructure/auth/auth.module";
 import { AuthService } from "../domain/service/auth.service";
+import { ResumeRepository } from "src/Resume/domain/repository/resume.repository";
+import { Resume, ResumeList } from "src/Resume/domain/entities/resume";
 
 @Module({
     imports: [
       //DatabaseModule,
-      TypeOrmModule.forFeature([User]),
-      TypeOrmExModule.forCustomRepository([UserRepository]),
+      TypeOrmModule.forFeature([User, ResumeList, Resume]),
+      TypeOrmExModule.forCustomRepository([UserRepository, ResumeRepository]),
       AuthModule
     ],
     exports: [TypeOrmModule, TypeOrmExModule],

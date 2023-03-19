@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, OneToOne } from "typeorm";
 
 export enum UserStatus {
     Archived ='Archived',
@@ -34,4 +34,5 @@ export class User {
 
     @Column({type: 'enum', name: 'user_type', enum: UserType})
     userType: UserType;
+
 }

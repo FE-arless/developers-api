@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Resume, ResumeList } from 'src/Resume/domain/entities/resume';
 import { User } from '../../Users/domain/entities/user';
 
 
@@ -14,7 +15,9 @@ import { User } from '../../Users/domain/entities/user';
         type: 'mysql',
         url: configService.get('database_config'),
         entities: [
-          User
+          User, 
+          ResumeList,
+          Resume,
         ],
         synchronize: true,
       }),

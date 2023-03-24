@@ -17,12 +17,12 @@ export class DashboardSchedule { //유저의 대시보드 id = email을 참조
     title: string;
 
     @Column()
-    time: BigInt;
+    time: Date;
 
     @Column()
     description: string;
 
-    @Column({ name: 'schedule_type', enum: ScheduleType })
+    @Column({ name: 'schedule_type', type: 'enum', enum: ScheduleType })
     scheduleType: ScheduleType;
 
     @ManyToOne(

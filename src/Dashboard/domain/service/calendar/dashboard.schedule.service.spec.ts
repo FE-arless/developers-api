@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DashboardCalendarService } from './dashboard.schedule.service';
+import { DashboardScheduleService } from './dashboard.schedule.service';
 
 describe('DashboardCalendarService', () => {
-  let service: DashboardCalendarService;
+  let service: DashboardScheduleService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DashboardCalendarService],
+      providers: [DashboardScheduleService],
     }).compile();
 
-    service = module.get<DashboardCalendarService>(DashboardCalendarService);
+    service = module.get<DashboardScheduleService>(DashboardScheduleService);
   });
 
   it('should be defined', () => {

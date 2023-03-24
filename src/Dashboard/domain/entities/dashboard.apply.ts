@@ -23,20 +23,20 @@ export class DashboardApply { //유저의 대시보드 id = email을 참조
     @Column({ name: 'company_name'})
     companyName: string;
 
-    @Column({ enum: UserApplyStatus })
+    @Column({ type: 'enum', enum: UserApplyStatus })
     status: UserApplyStatus;
 
     @Column()
     position: string;
 
-    @Column({ enum: UserPerformanceLevel })
+    @Column({ type: 'enum', enum: UserPerformanceLevel })
     level: UserPerformanceLevel;
 
     @Column({ nullable: true })
     salary?: string;
 
     @Column({ name: 'teck_stack' })
-    teckStack: string[];
+    teckStack: string;
 
     @Column({ name: 'job_post_url' })
     jobPostUrl: string;

@@ -1,4 +1,6 @@
 import { Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('dashboard.calendar')
-export class DashboardCalendarController {}
+@ApiTags('Dashboard_Schedule')
+@Controller('dashboard/schedule')
+export class DashboardScheduleController {}

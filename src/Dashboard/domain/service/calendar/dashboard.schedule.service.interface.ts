@@ -1,4 +1,4 @@
 
-export interface IDashboardService {
-    
+export interface IDashboardScheduleService {
+
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IDashboardCalendarService } from './dashboard.calendar.service.interface';
+import { IDashboardScheduleService } from './dashboard.schedule.service.interface';
 
 @Injectable()
-export class DashboardCalendarService implements IDashboardCalendarService {
+export class DashboardScheduleService implements IDashboardScheduleService {
 
 }

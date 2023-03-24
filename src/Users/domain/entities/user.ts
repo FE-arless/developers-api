@@ -1,7 +1,7 @@
 import { DashboardApply } from "src/Dashboard/domain/entities/dashboard.apply";
 import { DashboardSchedule } from "src/Dashboard/domain/entities/dashboard.schedule";
 import { DashboardNotes } from "src/Dashboard/domain/entities/dashboard.notes";
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, OneToOne, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 export enum UserStatus {
     Archived ='Archived',
@@ -53,7 +53,6 @@ export class User {
     )
     schedules!: DashboardSchedule[];
 
-    //notes
     @OneToMany(
         (type) => DashboardNotes,
         (note) => note.user,

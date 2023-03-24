@@ -23,7 +23,6 @@ export class ResumeService implements IResumeService {
             resume = {...resumeInfo, ...resume}
             resume.resumeList = resumeList //리스트 연관 관계 맺어줌
             await this.resumeInfoRepository.save(resume)
-            //await this.resumeRepository.save(resumeList)
 
         } else { //없으면 유저 없는 거 
             throw new HttpException('not found user', HttpStatus.NOT_FOUND)  

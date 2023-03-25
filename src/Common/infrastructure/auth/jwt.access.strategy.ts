@@ -4,6 +4,7 @@ import { AuthService } from 'src/Sign/domain/service/auth.service';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/Users/domain/service/user.service';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { User } from 'src/Users/domain/entities/user';
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: any): Promise<User> {
     return this.userService.getUserInfo(payload.email);
   }
 }

@@ -42,9 +42,9 @@ export class User {
     //apply
     @OneToMany(
         (type) => DashboardApply,
-        (apply) => apply.user,
+        (apply) => apply.user, { cascade: true }
     )
-    applies!: DashboardApply[];
+    applies!: Promise<DashboardApply[]>;
 
     //calendar
     @OneToMany(

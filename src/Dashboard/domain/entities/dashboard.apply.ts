@@ -7,6 +7,7 @@ export enum UserApplyStatus {
     AppliedScheduled = 'AppliedScheduled',
     Dropped = 'Dropped',
     Proceeding = 'Proceeding',
+    Passed = 'Passed'
 }
 
 export enum UserPerformanceLevel {
@@ -38,13 +39,34 @@ export class DashboardApply { //유저의 대시보드 id = email을 참조
     @Column({ name: 'teck_stack' })
     teckStack: string;
 
-    @Column({ name: 'job_post_url' })
+    @Column({ name: 'job_post_url', nullable: true })
     jobPostUrl: string;
 
     @ManyToOne(
         (type) => User,
-        (user) => user.applies, {nullable: true, onDelete: 'CASCADE'}
+        (user) => user.applies, { nullable: true, onDelete: 'CASCADE' }
     )
     user: User;
 }
 
+const applyStatusMap: Record<string, UserApplyStatus> = {
+    'Applied': UserApplyStatus.Applied,
+    'AppliedScheduled': UserApplyStatus.AppliedScheduled,
+    'Dropped': UserApplyStatus.Dropped,
+    'Proceeding': UserApplyStatus.Proceeding,
+    'Passed': UserApplyStatus.Passed
+};
+
+const userPerformanceLevelMap: Record<string, UserPerformanceLevel> = {
+    'Junior': UserPerformanceLevel.Junior,
+    'Middle': UserPerformanceLevel.Middle,
+    'Senior': UserPerformanceLevel.Senior
+}
+
+export function getStatus(statusString: string): UserApplyStatus | undefined {
+    return applyStatusMap[statusString]
+}
+
+export function getLevel(levelString: string): UserPerformanceLevel | undefined {
+    return userPerformanceLevelMap[levelString]
+}

@@ -15,12 +15,14 @@ import { DashboardApplyController } from './apply/dashboard.apply/dashboard.appl
 import { DashboardScheduleController } from './schedule/dashboard.schedule/dashboard.schedule.controller';
 import { DashboardController } from './dashboard/dashboard.controller';
 import { DashboardNotesController } from './notes/dashboard.notes/dashboard.notes.controller';
+import { User } from 'src/Users/domain/entities/user';
+import { UserRepository } from 'src/Users/domain/repository/user.repository';
 
 @Module({
   imports: 
   [
-    TypeOrmModule.forFeature([DashboardApply, DashboardSchedule, DashboardNotes]),
-    TypeOrmExModule.forCustomRepository([DashboardApplyRepository, DashboardScheduleRepository, DashboardNotesRepository]),
+    TypeOrmModule.forFeature([DashboardApply, DashboardSchedule, DashboardNotes, User]),
+    TypeOrmExModule.forCustomRepository([DashboardApplyRepository, DashboardScheduleRepository, DashboardNotesRepository, UserRepository]),
     AuthModule
   ],
   controllers: 

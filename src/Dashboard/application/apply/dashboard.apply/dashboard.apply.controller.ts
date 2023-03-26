@@ -17,7 +17,7 @@ export class DashboardApplyController {
 
     @UseGuards(AuthGuard('access'))
     @Get('')
-    async getApply(@Req() req: Request, @Query('started_At') startedAt: number): Promise<DashboardApply[] | undefined> {
+    async getApply(@Req() req: Request, @Query('started_at') startedAt: number): Promise<DashboardApply[] | undefined> {
         return this.dashboardApplyService.getApplyList((req.user as User).email, startedAt)
     }
 

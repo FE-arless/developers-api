@@ -72,40 +72,40 @@ export class DashboardNotesService implements IDashboardNotesService {
         var user = await this.userRepository.findByEmail(email)
 
         if (user) {
-            const notes = await user.notes
+            const notes = user.notes
             
             if (!notes) {
                 throw new HttpException('not found user`s notes', HttpStatus.FORBIDDEN)   
             }
 
-            var note: DashboardNotes = null
+            var matchNote: DashboardNotes = null;
 
-            notes.forEach(obj => {
+            (await notes).forEach(obj => {
                 if (obj.id == noteInfo.id) {
-                    note = obj
+                    matchNote = obj
                 } else {
                     return
                 }
             })
 
-            if (note) {
-                var note = new DashboardNotes()
+            if (matchNote) {
+                
 
-                note = {
-                    ...note,
+                matchNote = {
+                    ...matchNote,
                     ...noteInfo
                 }
 
-                note.user = { id: user.id, email: user.email } as User;
+                matchNote.user = { id: user.id, email: user.email } as User;
 
                 try {
-                    await this.dashboardNotesRepository.save(note)
+                    await this.dashboardNotesRepository.save(matchNote)
                 } catch(err) {
                     console.log(err)
                     throw new HttpException('internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
                 }
 
-                return note
+                return matchNote
             }
         } else {
             throw new HttpException('not found user', HttpStatus.NOT_FOUND)
@@ -136,7 +136,7 @@ export class DashboardNotesService implements IDashboardNotesService {
             if (note) {
 
                 try {
-                    await this.dashboardNotesRepository.delete(noteId)
+                    await this.dashboardNotesRepository.delete(note.id)
                 } catch(err) {
                     console.log(err)
                     throw new HttpException('internal server error', HttpStatus.INTERNAL_SERVER_ERROR)      

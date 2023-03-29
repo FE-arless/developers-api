@@ -78,32 +78,34 @@ export class DashboardApplyService implements IDashboardApplyService {
         var user = await this.userRepository.findByEmail(email)
 
         if (user) {
-            var apply: DashboardApply = null;
+
+            var matchApply: DashboardApply = null;
+
             const applies = await user.applies
 
             applies.forEach(obj => {
                 if (obj.id == applyInfo.id) {
-                    apply = obj
+                    matchApply = obj
                 } else {
                     return
                 }
             })
             
-            if (apply) {
+            if (matchApply) {
                 const info = {
                     salary: applyInfo.salary,
                     jobPostUrl: applyInfo.jobPostUrl,
                 }
-                apply = {
-                    ...apply,
+                matchApply = {
+                    ...matchApply,
                     status: getStatus(applyInfo.status),
                     ...info
                 }
 
-                apply.user = { id: user.id, email: user.email } as User;
+                matchApply.user = { id: user.id, email: user.email } as User;
 
                 try {
-                    await this.dashboardApplyRepository.save(apply)
+                    await this.dashboardApplyRepository.save(matchApply)
                 } catch(err) {
                     console.log(err)
                     throw new HttpException('internal server error', HttpStatus.INTERNAL_SERVER_ERROR)   
@@ -115,7 +117,7 @@ export class DashboardApplyService implements IDashboardApplyService {
             throw new HttpException('not found user', HttpStatus.NOT_FOUND)   
         }
 
-        return apply
+        return matchApply
     }
 
     async deleteApplyInfo(email: string, applyInfoId: number): Promise<Boolean> {

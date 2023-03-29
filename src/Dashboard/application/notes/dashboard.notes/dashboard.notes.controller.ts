@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateNoteDTO } from 'src/Dashboard/domain/dto/notes/create.note.dto';
 import { UpdateNoteDTO } from 'src/Dashboard/domain/dto/notes/update.note.dto';
@@ -9,6 +9,7 @@ import { DashboardNotesService } from 'src/Dashboard/domain/service/notes/dashbo
 import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Dashboard_Notes')
+@ApiBearerAuth()
 @Controller('dashboard/notes')
 export class DashboardNotesController {
     constructor(

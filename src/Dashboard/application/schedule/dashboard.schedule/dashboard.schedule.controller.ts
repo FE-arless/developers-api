@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateScheduleDTO } from 'src/Dashboard/domain/dto/schedule/create.schedule.dto';
 import { UpdateScheduleDTO } from 'src/Dashboard/domain/dto/schedule/update.schedule.dto';
@@ -9,6 +9,7 @@ import { DashboardScheduleService } from 'src/Dashboard/domain/service/calendar/
 import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Dashboard_Schedule')
+@ApiBearerAuth()
 @Controller('dashboard/schedule')
 export class DashboardScheduleController {
     constructor(

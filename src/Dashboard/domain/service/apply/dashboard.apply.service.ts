@@ -15,7 +15,7 @@ export class DashboardApplyService implements IDashboardApplyService {
         private readonly dashboardApplyRepository: DashboardApplyRepository
     ){}
 
-    async getApplyList(email: string, startedAt: number): Promise<DashboardApply[]> {
+    async getApplyList(email: string, startedAt: number = 0): Promise<DashboardApply[]> {
         var user = await this.userRepository.findByEmail(email)
 
         if (user) {
@@ -24,7 +24,7 @@ export class DashboardApplyService implements IDashboardApplyService {
             const diff: number = applies.length - startedAt;
 
             console.log(diff)
-            
+
             if (applies.length == 0) {
                 throw new HttpException('not found applies', HttpStatus.NOT_FOUND)   
             } else if (applies.length < 5) {
@@ -78,27 +78,39 @@ export class DashboardApplyService implements IDashboardApplyService {
         var user = await this.userRepository.findByEmail(email)
 
         if (user) {
-            var apply = new DashboardApply()
+            var apply: DashboardApply = null;
+            const applies = await user.applies
+
+            applies.forEach(obj => {
+                if (obj.id == applyInfo.id) {
+                    apply = obj
+                } else {
+                    return
+                }
+            })
             
-            const info = {
-                salary: applyInfo.salary,
-                jobPostUrl: applyInfo.jobPostUrl,
-            }
-            apply = {
-                ...apply,
-                status: getStatus(applyInfo.status),
-                ...info
-            }
+            if (apply) {
+                const info = {
+                    salary: applyInfo.salary,
+                    jobPostUrl: applyInfo.jobPostUrl,
+                }
+                apply = {
+                    ...apply,
+                    status: getStatus(applyInfo.status),
+                    ...info
+                }
 
-            apply.user = { id: user.id, email: user.email } as User;
+                apply.user = { id: user.id, email: user.email } as User;
 
-            try {
-                await this.dashboardApplyRepository.save(apply)
-            } catch(err) {
-                console.log(err)
-                throw new HttpException('internal server error', HttpStatus.INTERNAL_SERVER_ERROR)   
+                try {
+                    await this.dashboardApplyRepository.save(apply)
+                } catch(err) {
+                    console.log(err)
+                    throw new HttpException('internal server error', HttpStatus.INTERNAL_SERVER_ERROR)   
+                }
+            } else {
+                throw new HttpException('not found apply', HttpStatus.FORBIDDEN)       
             }
-
         } else {
             throw new HttpException('not found user', HttpStatus.NOT_FOUND)   
         }

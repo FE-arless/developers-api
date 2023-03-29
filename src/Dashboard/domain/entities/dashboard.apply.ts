@@ -1,5 +1,5 @@
 import { User } from "src/Users/domain/entities/user";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
 
 export enum UserApplyStatus {
@@ -42,6 +42,12 @@ export class DashboardApply { //유저의 대시보드 id = email을 참조
     @Column({ name: 'job_post_url', nullable: true })
     jobPostUrl: string;
 
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Timestamp
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Timestamp
+    
     @ManyToOne(
         (type) => User,
         (user) => user.applies, { nullable: true, onDelete: 'CASCADE' }

@@ -20,7 +20,7 @@ export class DashboardNotes { //유저의 대시보드 id = email을 참조
 
     @ManyToOne(
         (type) => User,
-        (user) => user.notes
+        (user) => user.notes, { nullable: true, onDelete: 'CASCADE' }
     )
     user: User
 }

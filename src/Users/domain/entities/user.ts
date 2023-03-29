@@ -49,13 +49,13 @@ export class User {
     //calendar
     @OneToMany(
         (type) => DashboardSchedule,
-        (schedule) => schedule.user,
+        (schedule) => schedule.user, { cascade: true }
     )
-    schedules!: DashboardSchedule[];
+    schedules!: Promise<DashboardSchedule[]>;
 
     @OneToMany(
         (type) => DashboardNotes,
-        (note) => note.user,
+        (note) => note.user, { cascade: true }
     )
-    notes!: DashboardNotes[];
+    notes!: Promise<DashboardNotes[]>;
 }

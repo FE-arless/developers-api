@@ -15,6 +15,13 @@ export class ResumeController {
     ){}
 
     @UseGuards(AuthGuard('access'))
+    @Get('')
+    async getResumeList(@Query('email') email: string): Promise<Resume[] | undefined> {
+        console.log((await this.resumeService.getResumeList(email)))
+        return (await this.resumeService.getResumeList(email))
+    }
+    
+    @UseGuards(AuthGuard('access'))
     @Get('list/')
     async getResumeInfo(@Query('resumeKey') resumeKey: string): Promise<Resume | undefined> {
         return this.resumeService.getResume(resumeKey)
@@ -36,12 +43,5 @@ export class ResumeController {
     @Post('list/delete')
     async deleteResumeInfo(@Query('resumeKey') resumeKey: string): Promise<Boolean | undefined> {
         return this.resumeService.deleteResume(resumeKey)
-    }
-
-    @UseGuards(AuthGuard('access'))
-    @Get('')
-    async getResumeList(@Query('email') email: string): Promise<Resume[] | undefined> {
-        console.log((await this.resumeService.getResumeList(email)))
-        return (await this.resumeService.getResumeList(email))
     }
 }

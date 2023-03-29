@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DashboardApply } from 'src/Dashboard/domain/entities/dashboard.apply';
+import { DashboardNotes } from 'src/Dashboard/domain/entities/dashboard.notes';
+import { DashboardSchedule } from 'src/Dashboard/domain/entities/dashboard.schedule';
 import { Resume, ResumeList } from 'src/Resume/domain/entities/resume';
 import { User } from '../../Users/domain/entities/user';
 
@@ -18,6 +21,9 @@ import { User } from '../../Users/domain/entities/user';
           User, 
           ResumeList,
           Resume,
+          DashboardApply,
+          DashboardSchedule,
+          DashboardNotes
         ],
         synchronize: true,
       }),

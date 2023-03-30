@@ -32,8 +32,6 @@ export class SignService implements ISignService {
                 } else { //인증된 회원은 그대로 업데이트되면서 가입 성공
                     userInfo.password = await bcrypt.hash(userInfo.password, 10)
 
-                    console.log(userInfo.password)
-
                     try {
                         await this.userRepository.save({
                             ...user,
@@ -84,9 +82,7 @@ export class SignService implements ISignService {
             throw new HttpException("Not found user", HttpStatus.NOT_FOUND)
         }
 
-        console.log(`${resetUser.tempPassword} ${user.password}`)
         const match = (resetUser.tempPassword == user.password)
-        console.log(match)
         if (!match) {
             throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST);
         }

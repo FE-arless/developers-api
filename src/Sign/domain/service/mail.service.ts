@@ -5,8 +5,8 @@ import { createTemporaryPassword, encrypt } from "src/util/auth";
 import { User, UserStatus, UserType } from "src/Users/domain/entities/user";
 import * as nodemailer from 'nodemailer';
 import * as bcrypt from 'bcrypt';
-import { getSignUpTemplate } from "src/Common/infrastructure/auth/signUp";
-import { getPasswordResetTemplate } from "src/Common/infrastructure/auth/password.reset";
+import { getSignUpTemplate } from "src/Common/infrastructure/auth/sign.up.template";
+import { getPasswordResetTemplate } from "src/Common/infrastructure/auth/password.reset.template";
 
 const transporter = nodemailer.createTransport({
     host: 'developers-tool.com',

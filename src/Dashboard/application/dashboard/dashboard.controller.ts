@@ -20,11 +20,12 @@ export class DashboardController {
         private readonly dashboardNotesService: DashboardNotesService
     ){}
 
-
-    @UseGuards(AuthGuard('access'))
     @ApiResponse({
-        type: Any
+        status: 200,
+        description: '특정 유저의 대시보드 데이터',
+        type: Any,
     })
+    @UseGuards(AuthGuard('access'))
     @Get('')
     async getDashboardInfos(@Req() req: Request): Promise<any | undefined> {
         const userEmail = (req.user as User).email

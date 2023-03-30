@@ -34,8 +34,6 @@ export class AuthService implements IAuthService {
 
     async validateUser(email: string, password: string): Promise<any> {
         const user = await this.userRepository.findByEmail(email)
-        console.log(user.email)
-
         if (user != undefined) {
             const isAuthentication = await this.authenticationUser(user, password)
             console.log(isAuthentication)

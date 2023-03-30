@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { User } from "src/Users/domain/entities/user";
 import { Column, CreateDateColumn, Entity, Long, ManyToOne, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
@@ -10,21 +11,27 @@ export enum ScheduleType {
 
 @Entity('dashboard_schedule') 
 export class DashboardSchedule { //유저의 대시보드 id = email을 참조
+    @ApiProperty({ example: 1, description: '유저 스케줄 고유 아이디' })
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ApiProperty({ example: '점심 약속', description: '유저 스케줄 제목' })
     @Column()
     title: string;
 
+    @ApiProperty({ example: new Date(), description: '유저 스케줄 날짜' })
     @Column({name: 'schedule_date'})
     scheduleDate: Date;
 
+    @ApiProperty({ example: '챙겨가야할 것', description: '유저 스케줄 설명' })
     @Column()
     description: string;
 
+    @ApiProperty({ example: 'Meeting', description: '유저 스케줄 타입' })
     @Column({ name: 'schedule_type', type: 'enum', enum: ScheduleType })
     scheduleType: ScheduleType;
 
+    
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Timestamp
 

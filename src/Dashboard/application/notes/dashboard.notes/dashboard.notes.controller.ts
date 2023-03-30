@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateNoteDTO } from 'src/Dashboard/domain/dto/notes/create.note.dto';
 import { UpdateNoteDTO } from 'src/Dashboard/domain/dto/notes/update.note.dto';
@@ -17,6 +17,11 @@ export class DashboardNotesController {
     ){}
 
 
+    @ApiResponse({
+        status: 200,
+        description: '특정 유저의 노트 목록',
+        type: Array<DashboardNotes>,
+    })
     @UseGuards(AuthGuard('access'))
     @ApiQuery({ type: Number })
     @Get('')
@@ -24,6 +29,11 @@ export class DashboardNotesController {
         return await this.dashboardNotesService.getNotes((req.user as User).email, startedAt)
     }
 
+    @ApiResponse({
+        status: 200,
+        description: '특정 유저의 노트 생성 후 데이터',
+        type: DashboardNotes,
+    })
     @UseGuards(AuthGuard('access'))
     @ApiBody({type: CreateNoteDTO})
     @Post('create')
@@ -31,6 +41,11 @@ export class DashboardNotesController {
         return await this.dashboardNotesService.createNote((req.user as User).email, noteInfo)
     }
 
+    @ApiResponse({
+        status: 200,
+        description: '특정 유저의 노트를 수정하고 난 후 데이터',
+        type: DashboardNotes,
+    })
     @UseGuards(AuthGuard('access'))
     @ApiBody({type: UpdateNoteDTO})
     @Post('update')
@@ -38,6 +53,11 @@ export class DashboardNotesController {
         return await this.dashboardNotesService.updateNote((req.user as User).email, noteInfo)
     }
 
+    @ApiResponse({
+        status: 200,
+        description: '특정 유저의 노트 삭제여부',
+        type: Boolean,
+    })
     @UseGuards(AuthGuard('access'))
     @ApiQuery({ type: Number })
     @Post('delete')

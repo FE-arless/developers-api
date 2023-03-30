@@ -9,6 +9,7 @@ import { User } from 'src/Users/domain/entities/user';
 import { UserModel } from 'src/Users/domain/model/user.model';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
+import { ResetUserPasswordDTO } from 'src/Sign/domain/dto/reset.user.password.dto';
 
 @ApiTags('Sign')
 @Controller('sign')
@@ -19,15 +20,25 @@ export class SignController {
         private readonly authService: AuthService
     ) {}
 
+    @Get('verify/email')
+    async verifyEmail(@Query('email') email: string): Promise<boolean | undefined> {
+        console.log(`verify email ${email}`)
+        return this.mailService.sendVerifyEmail(email)
+    }
+
+    @Get('verify/email/reset_password')
+    async sendResetPasswordEmail(@Query('email') email: string): Promise<boolean | undefined> {
+        return this.mailService.sendPasswordResetEmail(email)
+    }
+
     @Post('up')
     async signUp(@Body() user: CreateUserDTO): Promise<Boolean | undefined> {
         return this.signService.signUp(user)
     }
 
-    @Get('verify/email')
-    async verifyEmail(@Query('email') email: string): Promise<boolean | undefined> {
-        console.log(`verify email ${email}`)
-        return this.mailService.sendVerifyEmail(email)
+    @Post('auth/reset_password')
+    async resetPassword(@Body() resetUser: ResetUserPasswordDTO): Promise<User | undefined> {
+        return this.signService.resetPassword(resetUser)
     }
 
     @UseGuards(LocalAuthGuard)

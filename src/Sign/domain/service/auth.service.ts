@@ -21,9 +21,7 @@ export class AuthService implements IAuthService {
         if(!user.password && user.userType == UserType.Google) { //google
             return true
         } else { //email
-            console.log('email 패스워드 검증')
-            console.log(`${password} ${user.password}`)
-
+            console.log('패스워드 검증')
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {
@@ -43,7 +41,6 @@ export class AuthService implements IAuthService {
             console.log(isAuthentication)
             //인증된 유저가 맞다면
             if (isAuthentication) {
-                console.log(user)
                 return user
             } else {
                 return null
@@ -58,7 +55,6 @@ export class AuthService implements IAuthService {
         const tempUser = await this.userRepository.findByEmail(user.email)
 
         const payload = { email: user.email };
-        console.log(payload)
         if (tempUser != undefined) {
             return await this.getAccessToken(user)
         } else {
@@ -85,18 +81,4 @@ export class AuthService implements IAuthService {
         userModel.refreshToken = refreshToken
         return userModel
     }
-}
-
-//토큰 만들기
-//유저 이메일 기반 - 유니크 값
-export function createJWT(email: string, userType: string) {
-    crypto.randomUUID()
-
-    
-    //Claim 생성
-
-    
-    //토큰 구조 생성 및 서명
-
-    //반환
 }

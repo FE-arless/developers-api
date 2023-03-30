@@ -8,6 +8,7 @@ import { decrypt } from "src/util/auth";
 import * as bcrypt from 'bcrypt';
 import { ResumeRepository } from "src/Resume/domain/repository/resume.repository";
 import { ResumeList } from "src/Resume/domain/entities/resume";
+import { ResetUserPasswordDTO } from "../dto/reset.user.password.dto";
 
 @Injectable()
 export class SignService implements ISignService {
@@ -74,5 +75,37 @@ export class SignService implements ISignService {
         
         console.log('구글 유저 회원가입 성공')
         return true;
+    }
+
+    async resetPassword(resetUser: ResetUserPasswordDTO): Promise<User> {
+        var user = await this.userRepository.findByEmail(resetUser.email)
+
+        if (!user) {
+            throw new HttpException("Not found user", HttpStatus.NOT_FOUND)
+        }
+
+        console.log(`${resetUser.tempPassword} ${user.password}`)
+        const match = (resetUser.tempPassword == user.password)
+        console.log(match)
+        if (!match) {
+            throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST);
+        }
+
+        const hashedPassword = await bcrypt.hash(resetUser.password, 10)
+
+        user = {
+            ...user,
+            password: hashedPassword
+        }
+
+        try {
+            await this.userRepository.save(user)
+        } catch(err) {
+            throw new HttpException("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+
+        user.password = null
+
+        return user
     }
 }

@@ -17,6 +17,8 @@ export class UserService implements IUserService {
             throw new HttpException('not found user', HttpStatus.NOT_FOUND)
         }
 
+        user.password = null
+
         return user
     }
 
@@ -29,6 +31,7 @@ export class UserService implements IUserService {
 
         return this.userRepository.save({
             ...user,
+            password: null,
             ...userInfo
         })
     }

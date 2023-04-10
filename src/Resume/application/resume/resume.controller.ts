@@ -11,7 +11,7 @@ import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Resume')
 @ApiBearerAuth()
-@Controller('resume')
+@Controller('/api/v1/resume')
 export class ResumeController {
     constructor(
         private readonly resumeService: ResumeService

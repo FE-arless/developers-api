@@ -12,7 +12,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResetUserPasswordDTO } from 'src/Sign/domain/dto/reset.user.password.dto';
 
 @ApiTags('Sign')
-@Controller('sign')
+@Controller('/api/v1/sign')
 export class SignController {
     constructor(
         private readonly signService: SignService,

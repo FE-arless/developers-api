@@ -10,7 +10,7 @@ import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Dashboard_Schedule')
 @ApiBearerAuth()
-@Controller('dashboard/schedule')
+@Controller('/api/v1/dashboard/schedule')
 export class DashboardScheduleController {
     constructor(
         private readonly dashboardScheduleService: DashboardScheduleService

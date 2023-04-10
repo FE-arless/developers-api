@@ -12,7 +12,7 @@ import { Any } from 'typeorm';
 
 @ApiTags('Dashboard')
 @ApiBearerAuth()
-@Controller('dashboard')
+@Controller('/api/v1/dashboard')
 export class DashboardController {
     constructor(
         private readonly dashboardScheduleService: DashboardScheduleService,

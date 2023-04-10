@@ -10,7 +10,7 @@ import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Dashboard_Apply')
 @ApiBearerAuth()
-@Controller('dashboard/apply')
+@Controller('/api/v1/dashboard/apply')
 export class DashboardApplyController {
     constructor(
         private readonly dashboardApplyService: DashboardApplyService

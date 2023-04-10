@@ -10,7 +10,7 @@ import { User } from 'src/Users/domain/entities/user';
 
 @ApiTags('Dashboard_Notes')
 @ApiBearerAuth()
-@Controller('dashboard/notes')
+@Controller('/api/v1/dashboard/notes')
 export class DashboardNotesController {
     constructor(
         private readonly dashboardNotesService: DashboardNotesService
